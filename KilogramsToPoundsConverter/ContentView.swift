@@ -13,33 +13,44 @@ struct ContentView: View {
     // MARK: Computed properties
     var massInPounds: Double {
         return massInKilograms * 2.205
+        
+        var massInGrams: Double {
+            return massInKilograms * 1000
+        }
+        
+        var massInTons: Double {
+            return massInKilograms / 1000
+        }
+        
     }
     var feedback: String {
         switch  massInKilograms {
         case (0...30):
-                return ""
+            return ""
         case 30...60:
-                return ""
-            case 60...90:
-                return ""
-            case 90...120:
-                return ""
-            case 120...150:
-                return ""
-            default:
-                return ""
-        
+            return ""
+        case 60...90:
+            return ""
+        case 90...120:
+            return ""
+        case 120...150:
+            return ""
+        default:
+            return ""
+            
         }
     }
     
     var body: some View {
         VStack {
+            
             HStack {
                 Text("Kilograms")
+                    .bold()
             }
             //MARK: Imput
             Slider(value: $massInKilograms,
-                   in: 0.0...150.0,
+                   in: 0.0...1000.0,
                    step: 0.1,
                    label: {
                 Text("Kilograms")
@@ -48,7 +59,7 @@ struct ContentView: View {
                 Text("0")
             },
                    maximumValueLabel: {
-                Text("150")
+                Text("1000")
             })
             
             Text("\(String(format: "%.1f", massInKilograms)) Kg")
@@ -61,8 +72,29 @@ struct ContentView: View {
                 
                 Spacer()
             }
+            Text("\(String(format: "%.1f", massInPounds)) Lbs")
+                .bold()
+                .padding()
+            
+            Text("Grams")
+                .bold()
+            Text("\(String(format: "%.1f", massInGrams)) g")
+                .bold()
+                .padding()
+            
+            Text("Tons")
+                .bold()
+            Text("\(String(format: "%.1f", massInTons)) Tons")
+                .bold()
+                .padding()
+            
+            
+            
+            Spacer()
             
         }
+        .padding()
+        .navigationTitle("Mass Converter")
     }
 }
 
